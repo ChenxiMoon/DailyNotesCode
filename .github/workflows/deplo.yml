@@ -1,0 +1,40 @@
+name: Deploy VuePress site
+
+on:
+  push:
+    branches:
+      - main  # 监听 main 分支推送事件
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'  # 推荐用 Node 16+，22 也可以
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build VuePress site
+        run: npm run docs:build
+
+      # 如果你没有自定义域名，这一步可以去掉
+      - name: Add CNAME for custom domain
+        run: echo "docs.example.com" > docs/.vuepress/dist/CNAME
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/.vuepress/dist
+          # 如果你的项目是用户/组织主页，则branch默认是 gh-pages；项目页也默认是 gh-pages
+
+      - name: Show GitHub Pages URL
+        run: echo "https://chenximoon.github.io/DailyNotesCode/"
