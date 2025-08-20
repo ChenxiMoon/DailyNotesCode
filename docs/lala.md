@@ -8,7 +8,7 @@
 
 ### 2.分割任务
 
-- ![](F:\Zmk\DailyNotes\docs\.vuepress\public\img\image-20250820165030724.png)
+- ![image-20250820170508909](./.vuepress/public/images/image-20250820170508909.png)
 - *** 核心功能*** ：逐像素识别图像中所需要的目标，类似PS抠图的效果
 
 
