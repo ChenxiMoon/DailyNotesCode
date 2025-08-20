@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.24" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      const useChoice = localStorage.getItem('vuepress-color-scheme')
+      const systemStatus =
+        'matchMedia' in window
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
+
+      if (useChoice === 'light') {
+        document.documentElement.dataset.theme = 'light'
+      } else if (useChoice === 'dark' || systemStatus) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <title>图像语义分割与实例分割概述 | 我的笔记</title><meta name="description" content="每日学习记录">
+    <link rel="preload" href="/DailyNotesCode/assets/style-C2JCxPSn.css" as="style"><link rel="stylesheet" href="/DailyNotesCode/assets/style-C2JCxPSn.css">
+    <link rel="modulepreload" href="/DailyNotesCode/assets/app-D880reB5.js"><link rel="modulepreload" href="/DailyNotesCode/assets/lala.html-DS9DTGy0.js">
+    <link rel="prefetch" href="/DailyNotesCode/assets/404.html-mERmXN3-.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="vp-theme-container no-sidebar external-link-icon" vp-container><!--[--><header class="vp-navbar" vp-navbar><div class="vp-toggle-sidebar-button" title="toggle sidebar" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span><a class="route-link" href="/DailyNotesCode/"><!----><span class="vp-site-name" aria-hidden="true">我的笔记</span></a></span><div class="vp-navbar-items-wrapper" style=""><!--[--><!--]--><nav class="vp-navbar-items vp-hide-mobile" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><a class="route-link auto-link" href="/DailyNotesCode/" aria-label="首页"><!--[--><!--[--><!--]--><!--]-->首页<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="route-link auto-link" href="/DailyNotesCode/about/" aria-label="关于"><!--[--><!--[--><!--]--><!--]-->关于<!--[--><!--[--><!--]--><!--]--></a></div><!--]--></nav><!--[--><!--]--><button type="button" class="vp-toggle-color-mode-button" title="toggle color mode"><svg class="light-icon" viewbox="0 0 32 32" style=""><path d="M16 12.005a4 4 0 1 1-4 4a4.005 4.005 0 0 1 4-4m0-2a6 6 0 1 0 6 6a6 6 0 0 0-6-6z" fill="currentColor"></path><path d="M5.394 6.813l1.414-1.415l3.506 3.506L8.9 10.318z" fill="currentColor"></path><path d="M2 15.005h5v2H2z" fill="currentColor"></path><path d="M5.394 25.197L8.9 21.691l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 25.005h2v5h-2z" fill="currentColor"></path><path d="M21.687 23.106l1.414-1.415l3.506 3.506l-1.414 1.414z" fill="currentColor"></path><path d="M25 15.005h5v2h-5z" fill="currentColor"></path><path d="M21.687 8.904l3.506-3.506l1.414 1.415l-3.506 3.505z" fill="currentColor"></path><path d="M15 2.005h2v5h-2z" fill="currentColor"></path></svg><svg class="dark-icon" viewbox="0 0 32 32" style="display:none;"><path d="M13.502 5.414a15.075 15.075 0 0 0 11.594 18.194a11.113 11.113 0 0 1-7.975 3.39c-.138 0-.278.005-.418 0a11.094 11.094 0 0 1-3.2-21.584M14.98 3a1.002 1.002 0 0 0-.175.016a13.096 13.096 0 0 0 1.825 25.981c.164.006.328 0 .49 0a13.072 13.072 0 0 0 10.703-5.555a1.01 1.01 0 0 0-.783-1.565A13.08 13.08 0 0 1 15.89 4.38A1.015 1.015 0 0 0 14.98 3z" fill="currentColor"></path></svg></button><!----></div></header><!--]--><div class="vp-sidebar-mask"></div><!--[--><aside class="vp-sidebar" vp-sidebar><nav class="vp-navbar-items" aria-label="site navigation"><!--[--><div class="vp-navbar-item"><a class="route-link auto-link" href="/DailyNotesCode/" aria-label="首页"><!--[--><!--[--><!--]--><!--]-->首页<!--[--><!--[--><!--]--><!--]--></a></div><div class="vp-navbar-item"><a class="route-link auto-link" href="/DailyNotesCode/about/" aria-label="关于"><!--[--><!--[--><!--]--><!--]-->关于<!--[--><!--[--><!--]--><!--]--></a></div><!--]--></nav><!--[--><!--]--><!----><!--[--><!--]--></aside><!--]--><!--[--><main class="vp-page"><!--[--><!--]--><div vp-content><!--[--><!--]--><div id="content"><h1 id="图像语义分割与实例分割概述" tabindex="-1"><a class="header-anchor" href="#图像语义分割与实例分割概述"><span>图像语义分割与实例分割概述</span></a></h1><h3 id="_1-检测任务" tabindex="-1"><a class="header-anchor" href="#_1-检测任务"><span>1.检测任务</span></a></h3><ul><li><em><strong>核心功能</strong></em>： 在图像中将目标物体使用边界框框出，如行人检测中框出所有的行人</li><li><em><strong>应用的场景</strong></em>：计算机视觉中最经典的任务之一，适用于物体检测，行人检测等多个领域</li><li><em><strong>输出形式</strong></em>：只需要给出物体所在矩形区域的坐标点（左上和右下两点的坐标）</li><li></li></ul><h3 id="_2-分割任务" tabindex="-1"><a class="header-anchor" href="#_2-分割任务"><span>2.分割任务</span></a></h3><ul><li><img src="/DailyNotesCode/assets/image-20250820223635112-aDBY7R3B.png" alt="image-20250820223635112"></li><li><em><strong>核心功能</strong></em> ：逐像素识别图像中所需要的目标，类似PS抠图的效果</li><li><em><strong>与检测的区别</strong></em>： <ul><li>检测：使用矩形框粗略的定位</li><li>分割：精确到像素级的区域划分</li></ul></li><li><em><strong>典型输出</strong></em>：将图像分成多个区域（如人，草地，树木，蓝天），前景和背景分离</li></ul><h2 id="一、语义分割" tabindex="-1"><a class="header-anchor" href="#一、语义分割"><span>一、语义分割</span></a></h2><p><img src="/DailyNotesCode/assets/image-20250820224113558-BAPeBfCo.png" alt="image-20250820224113558"></p><h3 id="" tabindex="-1"><a class="header-anchor" href="#"><span></span></a></h3><ul><li><p><em><strong>定义</strong></em>：为每个像素打上类别的标签（如人、树、背景等）</p></li><li><p><em><strong>特点</strong></em>：</p><ul><li>只区分类别，不区分同类中的具体个体</li><li>同类物体使用相同的颜色标记（如图中多个人使用红色表示）</li></ul></li><li><p><em><strong>应用实例</strong></em>：简单分为前景（人）和背景（干扰因素）两类</p></li></ul><h2 id="二、实例分割" tabindex="-1"><a class="header-anchor" href="#二、实例分割"><span>二、实例分割</span></a></h2><ul><li><p><img src="/DailyNotesCode/assets/image-20250820225002022-C_ijhsYG.png" alt="image-20250820225002022"></p></li><li><p><em><strong>定义</strong></em>：在语义分割的基础上进一步区分同类中的不同个体</p></li><li><p><em><strong>特点</strong></em>：</p><ul><li>既要区分大类别（如人vs树）</li><li>又要区分同类个体（如人1，人2，人3）</li></ul></li><li><p><em><strong>与语义分割的对比</strong></em></p><ul><li>语义分割：将五个人标记为一类</li><li>实例分割：为五个人分别编号标记</li></ul></li><li><p><em><strong>技术实现</strong></em>：</p><ul><li><p>逐像素进行多分类判断</p></li><li><p>常用交叉熵损失函数： $$ loss = -pos_weight*y_{true}log(y_{pred})-(1-y_{ture})log(1-y_{ture}) $$</p></li><li><p>需要考虑样本均衡的问题： $$ pos_weight=\frac{num_neg}{num_pos} $$</p></li><li><p><em><strong>网络输出</strong></em>：</p><ul><li>检测任务输出坐标点</li><li>分割任务输出每个像素的分类结果</li></ul></li><li><p><em><strong>基础实现</strong></em>：对每个像素点进行二分类（前景/背景）</p></li><li><p><em><strong>扩展应用</strong></em>：多类别的分割任务</p></li></ul></li></ul><h2 id="知识总结" tabindex="-1"><a class="header-anchor" href="#知识总结"><span>知识总结</span></a></h2><p><img src="/DailyNotesCode/assets/image-20250820230952736-B6FuBIWe.png" alt="image-20250820230952736"></p><p>​</p></div><!--[--><!--]--></div><footer class="vp-page-meta"><!----><div class="vp-meta-item git-info"><div class="vp-meta-item last-updated"><span class="meta-item-label">最近更新: </span><time class="meta-item-info" datetime="2025-08-20T15:10:38.000Z" data-allow-mismatch>2025/8/20 15:10</time></div><div class="vp-meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: 2403133073@qq.com">ChenxiMoon</span><!----><!--]--><!--]--></span></div></div></footer><!----><!--[--><!--]--></main><!--]--></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/DailyNotesCode/assets/app-D880reB5.js" defer></script>
+  </body>
+</html>
