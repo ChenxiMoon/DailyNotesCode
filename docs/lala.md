@@ -8,7 +8,7 @@
 
 ### 2.分割任务
 
-- ![image-20250820162911523](C:\Users\qd\AppData\Roaming\Typora\typora-user-images\image-20250820162911523.png)
+- ![image-20250820165030724](F:\Zmk\DailyNotes\docs\.vuepress\public\img\image-20250820165030724.png)
 - *** 核心功能*** ：逐像素识别图像中所需要的目标，类似PS抠图的效果
 
 
